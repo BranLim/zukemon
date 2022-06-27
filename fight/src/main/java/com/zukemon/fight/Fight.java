@@ -33,12 +33,12 @@ public class Fight {
                 damage += entry.getValue().getDamage();
             }
             return damage;
-        } else {
-            damage = attackPower.getDamage();
-            if (criticalHit.isCriticalHit(attackPower.getCriticalHitChance())) {
-                damage *= 2;
-            }
-            return damage;
         }
+        damage = attackPower.getDamage();
+        if (criticalHit.isCriticalHit(attackPower.getCriticalHitChance())) {
+            damage *= 2;
+        }
+        return damage;
+
     }
 }
