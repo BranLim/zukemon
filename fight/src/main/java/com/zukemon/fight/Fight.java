@@ -1,6 +1,14 @@
 package com.zukemon.fight;
 
+import java.util.Map;
+
 public class Fight {
+
+    private final Map<Pokemon, AttackPower> pokemons;
+
+    public Fight(Map<Pokemon, AttackPower> pokemons) {
+        this.pokemons = pokemons;
+    }
 
     CriticalHit criticalHit = new CriticalHit();
 
@@ -17,6 +25,20 @@ public class Fight {
      * @param attackerType
      */
     public int hit(int attackerType) {
-      return 0;
+        var pokemon = Pokemon.findByKey(attackerType);
+        var attackPower = pokemons.get(pokemon);
+        int damage = 0;
+        if (attackerType == Pokemon.Krookodile.getId()) {
+            for (Map.Entry<Pokemon, AttackPower> entry : pokemons.entrySet()) {
+                damage += entry.getValue().getDamage();
+            }
+            return damage;
+        }
+        damage = attackPower.getDamage();
+        if (criticalHit.isCriticalHit(attackPower.getCriticalHitChance())) {
+            damage *= 2;
+        }
+        return damage;
+
     }
 }
